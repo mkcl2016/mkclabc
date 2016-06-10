@@ -1,0 +1,256 @@
+<html>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.2.min.js"></script>
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="turn.js"></script>
+    <script type="text/javascript" src="rotate/jquery.simple-text-rotator.min.js"></script>
+    <link href="rotate/simpletextrotator.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="jquery.unveil.js"></script>
+    <head>
+        <style>
+            #magazine {
+                margin-top: 20px;
+                width: 800px;
+                height: 500px;
+            }
+            #magazine .turn-page {
+                background-color: #F7F7E1;
+                border-radius: 10px;
+                border: 1px solid #D1D1D1;
+            }
+            /*body {
+                padding-top: 10px;
+            }*/
+
+            #coverPage {
+                background-size: 100%;
+                background-image: url("assets/cover2.png");
+                background-repeat: no-repeat;
+            }
+            #lastPage {
+                background-size: 100%;
+                background-image: url("assets/last_cover2.png");
+                background-repeat: no-repeat;
+            }
+            #coverFooter {
+                margin: 0 auto;
+            }
+            #footerParent {
+                position: fixed;
+                bottom: 0;
+                width: 100%;
+            }
+            #footerChild {
+                width: 400px;
+                /*min width should give to center the div.*/
+                margin: 0 auto;
+                /*here it will make center*/
+                margin-left: 7px;
+                text-align: center;
+                font-size: 20px;
+                font-family: 'Yanone Kaffeesatz', sans-serif;
+            }
+            .bookTitle {
+                font-family: 'Yanone Kaffeesatz', sans-serif;
+                /*font-family: 'Pacifico', cursive;*/
+                font-size: 50px;
+                margin-top: 165px;
+                margin-left: 60px;
+            }
+
+            /*.table {
+                font-family: 'Lobster Two', cursive;
+                font-size: 25px;
+
+            }*/
+
+            .table-borderless tbody tr td,
+            .table-borderless tbody tr th,
+            .table-borderless thead tr th {
+                border: none;
+                /*font-family: 'Lobster Two', cursive;*/
+                font-family: 'Yanone Kaffeesatz', sans-serif;
+                font-size: 25px;
+            }
+
+            .container-table {
+                display: table;
+            }
+            .vertical-center-row {
+                display: table-cell;
+                vertical-align: middle;
+            }
+
+            .pageHeading {
+                /*font-family: 'Lobster Two', cursive;*/
+                font-family: 'Yanone Kaffeesatz', sans-serif;
+                /*font-family: 'Pacifico', cursive;*/
+                font-size: 26px;
+                /*margin-top: 165px;
+              margin-left: 60px;*/
+            }
+
+            .pageImage {
+                /*display: inline-block;*/
+                float: left;
+                margin-top: 80px;
+                margin-left: 25px;
+                width: 350px;
+            }
+
+            .indexLinks {
+                cursor: pointer;
+            }
+
+            div.polaroid {
+                width: 350px;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                text-align: center;
+            }
+
+            .tilt {
+                -ms-transform: rotate(-10deg);
+                /* IE 9 */
+                -webkit-transform: rotate(-10deg);
+                /* Safari */
+                transform: rotate(-10deg);
+                /* Standard syntax */
+            }
+
+            div.polaroidText {
+                padding: 5px;
+                font-family: 'Yanone Kaffeesatz', sans-serif;
+                font-size: 16px;
+            }
+
+            div.pageContent {
+                margin-top: 80px;
+                margin-left: 25px;
+                margin-right: 25px;
+                font-family: 'Yanone Kaffeesatz', sans-serif;
+                font-size: 22px;
+                text-align: justify;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="container container-table">
+            <div class="row vertical-center-row">
+                <div class="text-center col-md-4">
+                    <div id="magazine">
+                        <!--Page 1-->
+                        <div class="hard" id="coverPage">
+                            <div class="bookTitle">journey so far...</div>
+                            <br/>
+                            <b>
+                                <span class="rotate" style="width:60px;font-family: 'Yanone Kaffeesatz', sans-serif;font-size:20px;color:grey">
+                                    OASIS,Sawant Sir's Speech,TechMeet,2011 MCA Interns,6.30 Snacks,\\deepakpk\Movies\,AngularJS,Yoga,OPLA,Quarterly Trips,Java,Diwali ;),SOLAR,MAJA,.Net,Exams,7th Pay,Codethrone,NodeJS,Tea Breaks,DA,Cricket
+                                </span>
+                            </b>
+                            <div id='footerParent'>
+                                <div id='footerChild'>Click On Top Or Bottom Corner To Start</div>
+                            </div>
+                        </div>
+                        <!--Page 2-->
+                        <div class="hard">
+                            <div class="bookTitle">
+                                CHAPTERS
+                            </div>
+                        </div>
+                        <!--Page 3-->
+                        <div>
+                            <table class="table table-borderless" style="margin-left:30px;margin-top:80px">
+                                <tr>
+                                    <td>
+                                        <span onclick="navigateToPage(4)" class="indexLinks">
+                                            1. The Beginning</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span onclick="navigateToPage(4)" class="indexLinks">
+                                            2. SOLAR</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span onclick="navigateToPage(4)" class="indexLinks">
+                                            3. OASIS</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span onclick="navigateToPage(4)" class="indexLinks">
+                                            4. Fun Times</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span onclick="navigateToPage(4)" class="indexLinks">
+                                            5. Credits</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span onclick="navigateToPage(4)" class="indexLinks">
+                                            6. About this site</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!--Page 4-->
+                        <div>
+                            <span class="pageHeading">The Beginning</span>
+                            <div>
+                                <div class="pageImage polaroid tilt">
+                                    <image data-src="assets/letter.jpg" id="pageImage4" src="assets/load.gif" class="img-responsive"></image>
+                                    <div class="polaroidText">Some Information about the image</div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Page 5-->
+                        <div>
+                            <div class="pageContent">
+                                The following example shows center aligned, and left and right aligned text (left alignment is default if text direction is left-to-right, and right alignment is default if text direction is right-to-left):
+                            </div>
+                        </div>
+                        <!--Page 6-->
+                        <div>
+                            Page 4
+                        </div>
+                        <!--Page 7-->
+                        <div class="hard"></div>
+                        <!--Page 8-->
+                        <div class="hard" id="lastPage"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        $(document).ready(function() {
+            $('#magazine').turn({
+                gradients: true, acceleration: true, autoCenter: true
+                // ,when: {     turned: function(event, page, view) {         if (page == 1) {             $(this).turn('peel', 'br');         }
+                //
+                //     } }
+            });
+            $("#magazine").bind("turned", function(event, page, view) {
+                if (page == 4 || page == 5) {
+                    $("#pageImage4").unveil();
+                }
+            });
+            $(".rotate").textrotator({
+                animation: "flipUp", // You can pick the way it animates when rotating through words. Options are dissolve (default), fade, flip, flipUp, flipCube, flipCubeUp and spin.
+                speed: 2000 // How many milliseconds until the next word show.
+            });
+        })
+        function navigateToPage(pageNumber) {
+            $("#magazine").turn("page", pageNumber);
+        }
+    </script>
+    <!-- <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'> -->
+    <link href='https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
+</html>
