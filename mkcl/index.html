@@ -1,256 +1,513 @@
 <html>
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.2.min.js"></script>
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-    <script type="text/javascript" src="turn.js"></script>
-    <script type="text/javascript" src="rotate/jquery.simple-text-rotator.min.js"></script>
-    <link href="rotate/simpletextrotator.css" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="jquery.unveil.js"></script>
-    <head>
-        <style>
-            #magazine {
-                margin-top: 20px;
-                width: 800px;
-                height: 500px;
-            }
-            #magazine .turn-page {
-                background-color: #F7F7E1;
-                border-radius: 10px;
-                border: 1px solid #D1D1D1;
-            }
-            /*body {
-                padding-top: 10px;
-            }*/
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.12.2.min.js"></script>
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="turn.js"></script>
+<script type="text/javascript" src="rotate/jquery.simple-text-rotator.min.js"></script>
+<link href="rotate/simpletextrotator.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="jquery.unveil.js"></script>
 
-            #coverPage {
-                background-size: 100%;
-                background-image: url("assets/cover2.png");
-                background-repeat: no-repeat;
-            }
-            #lastPage {
-                background-size: 100%;
-                background-image: url("assets/last_cover2.png");
-                background-repeat: no-repeat;
-            }
-            #coverFooter {
-                margin: 0 auto;
-            }
-            #footerParent {
-                position: fixed;
-                bottom: 0;
-                width: 100%;
-            }
-            #footerChild {
-                width: 400px;
-                /*min width should give to center the div.*/
-                margin: 0 auto;
-                /*here it will make center*/
-                margin-left: 7px;
-                text-align: center;
-                font-size: 20px;
-                font-family: 'Yanone Kaffeesatz', sans-serif;
-            }
-            .bookTitle {
-                font-family: 'Yanone Kaffeesatz', sans-serif;
-                /*font-family: 'Pacifico', cursive;*/
-                font-size: 50px;
-                margin-top: 165px;
-                margin-left: 60px;
-            }
+<head>
+  <style>
+    #magazine {
+      margin-top: 20px;
+      width: 800px;
+      height: 500px;
+    }
 
-            /*.table {
+    #magazine .turn-page {
+      background-color: #F7F7E1;
+      border-radius: 10px;
+      border: 1px solid #D1D1D1;
+    }
+
+    #coverPage {
+      background-size: 100%;
+      background-image: url("assets/cover2.png");
+      background-repeat: no-repeat;
+    }
+
+    #lastPage {
+      background-size: 100%;
+      background-image: url("assets/last_cover2.png");
+      background-repeat: no-repeat;
+    }
+
+    #coverFooter {
+      margin: 0 auto;
+    }
+
+    #footerParent {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    #footerChild {
+      width: 400px;
+      /*min width should give to center the div.*/
+      margin: 0 auto;
+      /*here it will make center*/
+      margin-left: 7px;
+      text-align: center;
+      font-size: 20px;
+      font-family: 'Yanone Kaffeesatz', sans-serif;
+    }
+
+    .bookTitle {
+      font-family: 'Yanone Kaffeesatz', sans-serif;
+      /*font-family: 'Pacifico', cursive;*/
+      font-size: 50px;
+      margin-top: 165px;
+      margin-left: 60px;
+    }
+    /*.table {
                 font-family: 'Lobster Two', cursive;
                 font-size: 25px;
 
             }*/
 
-            .table-borderless tbody tr td,
-            .table-borderless tbody tr th,
-            .table-borderless thead tr th {
-                border: none;
-                /*font-family: 'Lobster Two', cursive;*/
-                font-family: 'Yanone Kaffeesatz', sans-serif;
-                font-size: 25px;
-            }
+    .table-borderless tbody tr td,
+    .table-borderless tbody tr th,
+    .table-borderless thead tr th {
+      border: none;
+      /*font-family: 'Lobster Two', cursive;*/
+      font-family: 'Yanone Kaffeesatz', sans-serif;
+      font-size: 25px;
+    }
 
-            .container-table {
-                display: table;
-            }
-            .vertical-center-row {
-                display: table-cell;
-                vertical-align: middle;
-            }
+    .container-table {
+      display: table;
+    }
 
-            .pageHeading {
-                /*font-family: 'Lobster Two', cursive;*/
-                font-family: 'Yanone Kaffeesatz', sans-serif;
-                /*font-family: 'Pacifico', cursive;*/
-                font-size: 26px;
-                /*margin-top: 165px;
+    .vertical-center-row {
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    .pageHeading {
+      /*font-family: 'Lobster Two', cursive;*/
+      font-family: 'Yanone Kaffeesatz', sans-serif;
+      /*font-family: 'Pacifico', cursive;*/
+      font-size: 26px;
+      /*margin-top: 165px;
               margin-left: 60px;*/
-            }
+    }
 
-            .pageImage {
-                /*display: inline-block;*/
-                float: left;
-                margin-top: 80px;
-                margin-left: 25px;
-                width: 350px;
-            }
+    .pageImage {
+      /*display: inline-block;*/
+      float: left;
+      margin-top: 80px;
+      margin-left: 25px;
+      width: 350px;
+    }
 
-            .indexLinks {
-                cursor: pointer;
-            }
+    .indexLinks {
+      cursor: pointer;
+    }
 
-            div.polaroid {
-                width: 350px;
-                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-                text-align: center;
-            }
+    div.polaroid {
+      width: 350px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      text-align: center;
+    }
 
-            .tilt {
-                -ms-transform: rotate(-10deg);
-                /* IE 9 */
-                -webkit-transform: rotate(-10deg);
-                /* Safari */
-                transform: rotate(-10deg);
-                /* Standard syntax */
-            }
+    .tilt {
+      -ms-transform: rotate(-10deg);
+      /* IE 9 */
+      -webkit-transform: rotate(-10deg);
+      /* Safari */
+      transform: rotate(-10deg);
+      /* Standard syntax */
+    }
 
-            div.polaroidText {
-                padding: 5px;
-                font-family: 'Yanone Kaffeesatz', sans-serif;
-                font-size: 16px;
-            }
+    div.polaroidText {
+      padding: 5px;
+      font-family: 'Yanone Kaffeesatz', sans-serif;
+      font-size: 16px;
+    }
 
-            div.pageContent {
-                margin-top: 80px;
-                margin-left: 25px;
-                margin-right: 25px;
-                font-family: 'Yanone Kaffeesatz', sans-serif;
-                font-size: 22px;
-                text-align: justify;
-            }
+    div.pageContent {
+      margin-top: 80px;
+      margin-left: 25px;
+      margin-right: 25px;
+      font-family: 'Yanone Kaffeesatz', sans-serif;
+      font-size: 22px;
+      text-align: justify;
+    }
+  </style>
+</head>
 
-        </style>
-    </head>
-    <body>
-        <div class="container container-table">
-            <div class="row vertical-center-row">
-                <div class="text-center col-md-4">
-                    <div id="magazine">
-                        <!--Page 1-->
-                        <div class="hard" id="coverPage">
-                            <div class="bookTitle">journey so far...</div>
-                            <br/>
-                            <b>
-                                <span class="rotate" style="width:60px;font-family: 'Yanone Kaffeesatz', sans-serif;font-size:20px;color:grey">
-                                    OASIS,Sawant Sir's Speech,TechMeet,2011 MCA Interns,6.30 Snacks,\\deepakpk\Movies\,AngularJS,Yoga,OPLA,Quarterly Trips,Java,Diwali ;),SOLAR,MAJA,.Net,Exams,7th Pay,Codethrone,NodeJS,Tea Breaks,DA,Cricket
-                                </span>
-                            </b>
-                            <div id='footerParent'>
-                                <div id='footerChild'>Click On Top Or Bottom Corner To Start</div>
-                            </div>
-                        </div>
-                        <!--Page 2-->
-                        <div class="hard">
-                            <div class="bookTitle">
-                                CHAPTERS
-                            </div>
-                        </div>
-                        <!--Page 3-->
-                        <div>
-                            <table class="table table-borderless" style="margin-left:30px;margin-top:80px">
-                                <tr>
-                                    <td>
-                                        <span onclick="navigateToPage(4)" class="indexLinks">
-                                            1. The Beginning</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span onclick="navigateToPage(4)" class="indexLinks">
-                                            2. SOLAR</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span onclick="navigateToPage(4)" class="indexLinks">
-                                            3. OASIS</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span onclick="navigateToPage(4)" class="indexLinks">
-                                            4. Fun Times</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span onclick="navigateToPage(4)" class="indexLinks">
-                                            5. Credits</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span onclick="navigateToPage(4)" class="indexLinks">
-                                            6. About this site</span>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                        <!--Page 4-->
-                        <div>
-                            <span class="pageHeading">The Beginning</span>
-                            <div>
-                                <div class="pageImage polaroid tilt">
-                                    <image data-src="assets/letter.jpg" id="pageImage4" src="assets/load.gif" class="img-responsive"></image>
-                                    <div class="polaroidText">Some Information about the image</div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--Page 5-->
-                        <div>
-                            <div class="pageContent">
-                                The following example shows center aligned, and left and right aligned text (left alignment is default if text direction is left-to-right, and right alignment is default if text direction is right-to-left):
-                            </div>
-                        </div>
-                        <!--Page 6-->
-                        <div>
-                            Page 4
-                        </div>
-                        <!--Page 7-->
-                        <div class="hard"></div>
-                        <!--Page 8-->
-                        <div class="hard" id="lastPage"></div>
-                    </div>
-                </div>
+<body>
+  <div class="container container-table">
+    <div class="row vertical-center-row">
+      <div class="text-center col-md-4">
+        <div id="magazine">
+          <!--Page 1-->
+          <div class="hard" id="coverPage">
+            <div class="bookTitle">journey so far...</div>
+            <div id='footerParent'>
+              <div id='footerChild'>Click On Top Or Bottom Corner To Start</div>
             </div>
+          </div>
+          <!--Page 2-->
+          <div class="hard">
+            <div class="bookTitle">
+              CHAPTERS
+              <br/>
+              <b>
+                                  <span class="rotate" style="width:60px;font-family: 'Yanone Kaffeesatz', sans-serif;font-size:20px;color:grey">
+                                      OASIS,Sawant Sir's Speech,TechMeet,2011 MCA Interns,6.30 Snacks,\\deepakpk\Movies\,AngularJS,Yoga,OPLA,Quarterly Trips,Java,Diwali ;),SOLAR,MAJA,.Net,Exams,7th Pay,Codethrone,NodeJS,Tea Breaks,DA,Cricket
+                                  </span>
+                              </b>
+            </div>
+          </div>
+          <!--Page 3-->
+          <div>
+            <table class="table table-borderless" style="margin-left:30px;margin-top:80px">
+              <tr>
+                <td>
+                  <span onclick="navigateToPage(4)" class="indexLinks">
+                                            1. The Beginning</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span onclick="navigateToPage(10)" class="indexLinks">
+                                            2. SOLAR</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span onclick="navigateToPage(16)" class="indexLinks">
+                                            3. OASIS</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span onclick="navigateToPage(20)" class="indexLinks">
+                                            4. Fun Times</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span onclick="navigateToPage(34)" class="indexLinks">
+                                            5. Last Words</span>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span onclick="navigateToPage(35)" class="indexLinks">
+                                            6. About this site</span>
+                </td>
+              </tr>
+            </table>
+          </div>
+          <!--Page 4-->
+          <div>
+            <span class="pageHeading">The Beginning</span>
+            <div>
+              <div class="pageImage polaroid tilt">
+                <image data-src="assets/letter.jpg" id="pageImage4" src="assets/load.gif" class="img-responsive"></image>
+                <div class="polaroidText">First Ever Offer Letter</div>
+              </div>
+            </div>
+          </div>
+          <!--Page 5-->
+          <div>
+            <div class="pageContent">
+              First, an online test at brainbench.com, then hands on test at HMCT office, and finally after personal interview by <b>Ajit Sir and Mohsin Sir</b>, it was an amazing feeling to receive my FIRST EVER OFFER LETTER.
+              <br/>I still remember that day, <b>19-Dec-2011</b> to be precise, when Ajit Sir handed over the Offer Letter in 5B Conference Room.
+              <br/> And, that's how my wonderful journey at MKCL started :)
+            </div>
+          </div>
+          <!--Page 6-->
+          <div>
+            <div class="pageImage polaroid">
+              <image data-src="assets/3.jpg" id="pageImage6" src="assets/load.gif" class="img-responsive"></image>
+              <div class="polaroidText">2011 MCA Interns
+              </div>
+            </div>
+          </div>
+          <!--Page 7-->
+          <div>
+            <div class="pageContent">
+              I was selected along with these wonderful friends(interns).
+              <br/>From left to right, Abdul, Deepak, Reena, Yograj, Sonam, Amogh, Shraddha, Anand, Chetan, Dhananjay, Sameer Sir(No, he was not an intern),Rajesh and Ashutosh(Not in picture)
+            </div>
+          </div>
+          <!--Page 8-->
+          <div>
+            <div class="pageImage polaroid tilt">
+              <image data-src="assets/4.jpg" id="pageImage8" src="assets/load.gif" class="img-responsive"></image>
+              <div class="polaroidText">2011 MCA Interns with Sawant Sir</div>
+            </div>
+          </div>
+          <!--Page 9-->
+          <div>
+            <div class="pageContent">
+              The thoughtful and mesmerizing speeches of <b>Sawant Sir</b> always motivated everyone to perform better everyday. And, hence it was an absolute honour for all of us being clicked with <b>Sawant Sir</b>.
+            </div>
+          </div>
+          <!--Page 10-->
+          <div>
+            <span class="pageHeading">SOLAR</span>
+            <div class="pageImage polaroid">
+              <image data-src="assets/5.jpg" id="pageImage10" src="assets/load.gif" class="img-responsive"></image>
+              <div class="polaroidText">SOLAR Team</div>
+            </div>
+          </div>
+          <!--Page 11-->
+          <div>
+            <div class="pageContent">
+              I started my professional career in MKCL from SOLAR team. I must say that, it is one of the wonderful team at MKCL. I am thankful to <b>Vikas Sir</b> for providing the guidance and nurturing the talent in me. I am also very fortunate to
+              work with the most chilled, jovial and creative person, <b>Pawan Sir</b>. Apart from that, I also got to learn a lot from <b>Dhanesh Sir and Sonika Ma'am</b>.
+              <br/>I would like to thank the whole SOLAR team to accept me in their family whole heartedly.
+            </div>
+          </div>
+          <!--Page 12-->
+          <div>
+            <div class="pageImage polaroid">
+              <image data-src="assets/6.jpg" id="pageImage12" src="assets/load.gif" class="img-responsive"></image>
+              <div class="polaroidText">Quarterly Trip with SOLAR Team</div>
+            </div>
+          </div>
+          <!--Page 13-->
+          <div>
+            <div class="pageImage polaroid">
+              <image data-src="assets/7.jpg" id="pageImage13" src="assets/load.gif" class="img-responsive"></image>
+              <div class="polaroidText">Pagalpanti on Tie Day</div>
+            </div>
+          </div>
+          <!--Page 14-->
+          <div>
+            <div class="pageImage polaroid">
+              <image data-src="assets/8.jpg" id="pageImage14" src="assets/load.gif" class="img-responsive"></image>
+              <div class="polaroidText">Work Time</div>
+            </div>
+          </div>
+          <!--Page 15-->
+          <div>
+            <div class="pageImage polaroid">
+              <image data-src="assets/9.jpg" id="pageImage15" src="assets/load.gif" class="img-responsive"></image>
+              <div class="polaroidText">Sleep Time ;)</div>
+            </div>
+          </div>
+          <!--Page 16-->
+          <div>
+            <span class="pageHeading">OASIS</span>
+            <div class="pageImage polaroid">
+              <image data-src="assets/10.jpg" id="pageImage16" src="assets/load.gif" class="img-responsive"></image>
+              <div class="polaroidText">OASIS Team</div>
+            </div>
+          </div>
+          <!--Page 17-->
+          <div>
+            <div class="pageContent" style="margin-top:20px;">
+              After SOLAR, I got to work with the most happening team of MKCL, ie OASIS. I would like thank <b>Mohan Sir and Nilesh Sir</b> for believing in me and pushing my limits by assigning challenging tasks.
+              <br/>I am grateful to <b>Mohsin Sir</b> for giving me freedom to perform given task, and, from him, I got to learn that how to handle the crisis with very cool and calm mind.
+              <br/>And I am going to miss everyone for tea time banter. Also, I got to learn a lot from everyone at OASIS, thank you all, namely, [Ganesh, Digambar, Jayesh, (Ravi), Amit, Javed, Vijay, (Rupesh), Shrikant, Shashank, Manish, Santosh and Vaibhav]Sir,
+              [Almas, Shilpa]Ma'am.
+            </div>
+          </div>
+          <!--Page 18-->
+          <div>
+            <div class="pageImage polaroid">
+              <image data-src="assets/11.jpg" id="pageImage18" src="assets/load.gif" class="img-responsive"></image>
+              <div class="polaroidText">3D Photo ;)</div>
+            </div>
+          </div>
+          <!--Page 19-->
+          <div>
+            <div class="pageImage polaroid">
+              <image data-src="assets/12.jpg" id="pageImage19" src="assets/load.gif" class="img-responsive"></image>
+              <div class="polaroidText">Punchnama</div>
+            </div>
+          </div>
+          <!--Page 20-->
+          <div>
+            <span class="pageHeading">Fun Times</span>
+            <div class="pageImage polaroid">
+              <image data-src="assets/13.jpg" id="pageImage20" src="assets/load.gif" class="img-responsive"></image>
+              <div class="polaroidText">Box Cricket Team</div>
+            </div>
+          </div>
+          <!--Page 21-->
+          <div>
+            <div class="pageImage polaroid">
+              <image data-src="assets/14.jpg" id="pageImage21" src="assets/load.gif" class="img-responsive"></image>
+              <div class="polaroidText">Celebration</div>
+            </div>
+          </div>
+          <!--Page 22-->
+          <div>
+            <div class="pageImage polaroid">
+              <image data-src="assets/15.jpg" id="pageImage22" src="assets/load.gif" class="img-responsive"></image>
+              <div class="polaroidText">Movie Time</div>
+            </div>
+          </div>
+          <!--Page 23-->
+          <div>
+            <div class="pageImage polaroid">
+              <image data-src="assets/16.jpg" id="pageImage23" src="assets/load.gif" class="img-responsive"></image>
+              <div class="polaroidText">Chetan BHAI</div>
+            </div>
+          </div>
+          <!--Page 24-->
+          <div>
+            <div class="pageImage polaroid">
+              <image data-src="assets/17.jpg" id="pageImage24" src="assets/load.gif" class="img-responsive"></image>
+              <div class="polaroidText">Traditional Day</div>
+            </div>
+          </div>
+          <!--Page 25-->
+          <div>
+            <div class="pageImage polaroid">
+              <image data-src="assets/18.jpg" id="pageImage25" src="assets/load.gif" class="img-responsive"></image>
+              <div class="polaroidText">Traditional Day</div>
+            </div>
+          </div>
+          <!--Page 26-->
+          <div>
+            <div class="pageImage polaroid">
+              <image data-src="assets/19.jpg" id="pageImage26" src="assets/load.gif" class="img-responsive"></image>
+              <div class="polaroidText">Quarterly Picnic - Diveagar</div>
+            </div>
+          </div>
+          <!--Page 27-->
+          <div>
+            <div class="pageImage polaroid">
+              <image data-src="assets/20.jpg" id="pageImage27" src="assets/load.gif" class="img-responsive"></image>
+              <div class="polaroidText">Quarterly Picnic - Diveagar</div>
+            </div>
+          </div>
+          <!--Page 28-->
+          <div>
+            <div class="pageImage polaroid">
+              <image data-src="assets/21.jpg" id="pageImage28" src="assets/load.gif" class="img-responsive"></image>
+              <div class="polaroidText">I remember that during one of the nodeJS classes, <b>Ajit Sir</b> said that, we should be learner first, then developer or anything else.
+                <br/>This line was truly motivating and it helped me to find learner inside me. Thank you for wonderful words.
+              </div>
+            </div>
+          </div>
+          <!--Page 29-->
+          <div>
+            <div class="pageImage polaroid">
+              <image data-src="assets/22.jpg" id="pageImage29" src="assets/load.gif" class="img-responsive"></image>
+              <div class="polaroidText">go GOA</div>
+            </div>
+          </div>
+          <!--Page 30-->
+          <div>
+            <div class="pageImage polaroid">
+              <image data-src="assets/23.jpg" id="pageImage30" src="assets/load.gif" class="img-responsive"></image>
+              <div class="polaroidText">Quarterly Trip - Diveagar</div>
+            </div>
+          </div>
+          <!--Page 31-->
+          <div>
+            <div class="pageImage polaroid">
+              <image data-src="assets/24.jpg" id="pageImage31" src="assets/load.gif" class="img-responsive"></image>
+              <div class="polaroidText">Quarterly Trip - Diveagar</div>
+            </div>
+          </div>
+          <!--Page 32-->
+          <div>
+            <div class="pageImage polaroid">
+              <image data-src="assets/25.jpg" id="pageImage32" src="assets/load.gif" class="img-responsive"></image>
+              <div class="polaroidText">Trying Something HATKE</div>
+            </div>
+          </div>
+          <!--Page 33-->
+          <div>
+            <div class="pageImage polaroid">
+              <image data-src="assets/26.jpg" id="pageImage33" src="assets/load.gif" class="img-responsive"></image>
+              <div class="polaroidText">Cricket Team(Apr.2012)</div>
+            </div>
+          </div>
+          <!--Page 34-->
+          <div>
+            <span class="pageHeading">Last Words</span>
+            <div class="pageContent">
+              Thanks to MKCL for providing me this wonderful opportunity to work here. It's really been a roller coaster ride. Thanks to everyone who has done favor/helped me either directly or indirectly. I am really gonna miss all the colleague who have been so kind
+              and friendly to me.
+              <br/>You can contact me on +91-9860036021 or at ansari.abr@gmail.com
+              <br/>Bye bye for now.... :)
+            </div>
+          </div>
+          <!--Page 35-->
+          <div class="hard"><span class="pageHeading">About this site</span>
+            <div class="pageContent">
+              The source code for this site can be found <a href="https://goo.gl/6f2Cvu">here</a>
+            </div>
+          </div>
+          <!--Page 8-->
+          <div class="hard" id="lastPage"></div>
         </div>
-    </body>
-    <script>
-        $(document).ready(function() {
-            $('#magazine').turn({
-                gradients: true, acceleration: true, autoCenter: true
-                // ,when: {     turned: function(event, page, view) {         if (page == 1) {             $(this).turn('peel', 'br');         }
-                //
-                //     } }
-            });
-            $("#magazine").bind("turned", function(event, page, view) {
-                if (page == 4 || page == 5) {
-                    $("#pageImage4").unveil();
-                }
-            });
-            $(".rotate").textrotator({
-                animation: "flipUp", // You can pick the way it animates when rotating through words. Options are dissolve (default), fade, flip, flipUp, flipCube, flipCubeUp and spin.
-                speed: 2000 // How many milliseconds until the next word show.
-            });
-        })
-        function navigateToPage(pageNumber) {
-            $("#magazine").turn("page", pageNumber);
-        }
-    </script>
-    <!-- <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Lobster+Two' rel='stylesheet' type='text/css'> -->
-    <link href='https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  $(document).ready(function() {
+    $('#magazine').turn({
+      gradients: true,
+      acceleration: true,
+      autoCenter: true
+    });
+    $("#magazine").bind("turned", function(event, page, view) {
+      if (page == 4 || page == 5) {
+        $("#pageImage4").unveil();
+      } else if (page == 6 || page == 7) {
+        $("#pageImage6").unveil();
+      } else if (page == 8 || page == 9) {
+        $("#pageImage8").unveil();
+      } else if (page == 10 || page == 11) {
+        $("#pageImage10").unveil();
+      } else if (page == 12 || page == 13) {
+        $("#pageImage12").unveil();
+        $("#pageImage13").unveil();
+      } else if (page == 14 || page == 15) {
+        $("#pageImage14").unveil();
+        $("#pageImage15").unveil();
+      } else if (page == 16 || page == 17) {
+        $("#pageImage16").unveil();
+      } else if (page == 18 || page == 19) {
+        $("#pageImage18").unveil();
+        $("#pageImage19").unveil();
+      } else if (page == 20 || page == 21) {
+        $("#pageImage20").unveil();
+        $("#pageImage21").unveil();
+      } else if (page == 22 || page == 23) {
+        $("#pageImage22").unveil();
+        $("#pageImage23").unveil();
+      } else if (page == 24 || page == 25) {
+        $("#pageImage24").unveil();
+        $("#pageImage25").unveil();
+      } else if (page == 26 || page == 27) {
+        $("#pageImage26").unveil();
+        $("#pageImage27").unveil();
+      } else if (page == 28 || page == 29) {
+        $("#pageImage28").unveil();
+        $("#pageImage29").unveil();
+      } else if (page == 30 || page == 31) {
+        $("#pageImage30").unveil();
+        $("#pageImage31").unveil();
+      } else if (page == 32 || page == 33) {
+        $("#pageImage32").unveil();
+        $("#pageImage33").unveil();
+      }
+    });
+    $(".rotate").textrotator({
+      animation: "flipUp", // You can pick the way it animates when rotating through words. Options are dissolve (default), fade, flip, flipUp, flipCube, flipCubeUp and spin.
+      speed: 2000 // How many milliseconds until the next word show.
+    });
+  })
+
+  function navigateToPage(pageNumber) {
+    $("#magazine").turn("page", pageNumber);
+  }
+</script>
+<link href='https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz' rel='stylesheet' type='text/css'>
+
 </html>
